@@ -30,14 +30,21 @@ class HTMLElement(Element):
             self.ahead_text = Random.string()
 
     def mutate_text(self) -> bool:
+        #Modified by STARLab
         if Random.bool():
             if docs.is_html_text_element(self.name):
-                self.last_text = Random.string()
+                if self.last_text != None:
+                    self.last_text = self.last_text + Random.string()
+                else:
+                    self.last_text = Random.string()
                 return True
             return False
         else:
             if self.parent is None or docs.is_html_text_element(self.parent.name):
-                self.ahead_text = Random.string()
+                if self.ahead_text != None:
+                    self.ahead_text = self.ahead_text + Random.string()
+                else:
+                    self.ahead_text = Random.string()
                 return True
             return False
 
