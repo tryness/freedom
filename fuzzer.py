@@ -20,13 +20,27 @@ class Fuzzer:
         document.generate_nodes()
         document.generate_attributes()
         document.generate_css_rules()
-        document.generate_js_functions()
+        # document.generate_js_functions()
+        return document
+    
+    #Implemented by STARLab
+    def mutate_one(self, document:Document):
+        #Text Mutation
+        document.dom_tree.mutate_text()
+        #Class Addition
+        document.dom_tree.insert_class()
+        #CSS(Position) Addition
+        document.dom_tree.add_position()
         return document
 
     def generate_only(self, num):
         for i in range(num):
             print("Generating testcase #{}".format(i))
             document = self.generate_one()
-            self.manager.save_testcase(document)
+            self.manager.save_testcase(document, "original")
+            document = self.mutate_one(document)
+            self.manager.save_testcase(document, "mutated")
+            self.manager.count += 1
+            
         print("Total {} testcases have been written to '{}'".format(num, os.path.abspath(self.manager.output_dir)))
 
