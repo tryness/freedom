@@ -6,7 +6,7 @@ class Random:
     uniform = random.uniform
     sample = random.sample
     choices = random.choices
-    interesting_chars = ["0", "1", "A"]
+    interesting_chars = ["0", "1", "A", "Z"]
 
     @staticmethod
     def choice(l):
@@ -29,8 +29,8 @@ class Random:
     @staticmethod
     def string():
         size = Random.choice([0, 1, 2, 4, 8, 10, 15, 16, 20, 31, 32, 40, 63, 64, 100, 200])
-        # return "".join([Random.choice(Random.interesting_chars) for _ in range(size)])
-        return "A" * size
+        return "".join([Random.choice(Random.interesting_chars) for _ in range(size)])
+        # return "A" * size
 
     @staticmethod
     def char():
