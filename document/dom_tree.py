@@ -1,10 +1,12 @@
 import docs
 from config import TreeConfig
-from attribute import get_attribute_count
-from object import factory as of
+from attribute import get_attribute_count, Attribute
+from object import factory as of, Element
 from utils.random import Random
 
 import itertools
+
+from value import html
 
 
 # We do not merge those nodes from two into one.
@@ -161,18 +163,17 @@ class DOMTree:
         return False
 
     # T6
+    #Modified by STARLab
     def mutate_text(self):
         if self.element_count == 0:
             return False
-
         elements = self.elements
-        trial = 0
-        while trial < self.element_count:
+        mutation_count = 0
+        while mutation_count < self.element_count * 10:
             element = Random.choice(elements)
-            if element.mutate_text():
-                return True
-            trial += 1
-        return False
+            element.mutate_text()
+            mutation_count += 1
+        return True
 
     def allow_merge(self):
         return self.element_count <= self.max_element_count
@@ -229,6 +230,19 @@ class DOMTree:
                 self.element_count += 1
 
         return merge_inserts
+    
+    #Implemented by STARLab
+    def insert_class(self):
+        if self.element_count == 0:
+            return False
+        
+        elements = self.elements
+        for count, element in enumerate(elements):
+            if 'class' in element.attributes:
+                element.attributes['class'].value = str(element.attributes['class'].value) + f" newclass{count}"
+            else:
+                element.attributes['class'] = Attribute(element, 'class', html.ClassValue())
+                element.attributes['class'].value = f"newclass{count}"
 
     def __str__(self):
         s = ""
