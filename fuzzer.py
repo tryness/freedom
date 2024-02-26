@@ -29,8 +29,8 @@ class Fuzzer:
         document.dom_tree.mutate_text()
         #Class Addition
         document.dom_tree.insert_class()
-        #CSS(Position) Addition
-        document.dom_tree.add_position()
+        #CSS rule Addition
+        document.css.insert_rule(document.dom_tree.element_count)
         return document
 
     def generate_only(self, num):
