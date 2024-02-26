@@ -3,6 +3,7 @@ from css.var import CSSVariables
 from css.rule import create_css_style_rule, create_css_keyframes_rule
 from utils.random import Random
 
+from css.selector import CSSClassSelector
 
 class CSS:
     def __init__(self):
@@ -97,6 +98,16 @@ class CSS:
         self.css_style_rules.extend(other.css_style_rules)
         for i in range(len(self.css_keyframes_rules)):
             self.css_keyframes_rules[i].merge(other.css_keyframes_rules[i])
+
+    def insert_rule(self, class_count):
+        for i in range(class_count):
+            css_rule = create_css_style_rule()
+            # Choose Selector
+            css_rule.selector = CSSClassSelector()
+            css_rule.selector.cla = f"newclass{i}"
+            self.css_style_rules.append(css_rule)
+
+        return True
 
     def __str__(self):
         s = "<style>\n"
