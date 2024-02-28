@@ -4,6 +4,8 @@ from css.rule import create_css_style_rule, create_css_keyframes_rule
 from utils.random import Random
 
 from css.selector import CSSClassSelector
+from css.declaration import CSSDeclaration
+import random
 
 class CSS:
     def __init__(self):
@@ -105,6 +107,17 @@ class CSS:
             # Choose Selector
             css_rule.selector = CSSClassSelector()
             css_rule.selector.cla = f"newclass{i}"
+
+            position_declaration = CSSDeclaration("position","fixed")
+            top_declaration = CSSDeclaration("top",f"{Random.range(0, 100)}%")
+            left_declaration = CSSDeclaration("left",f"{Random.range(0, 100)}%")
+            scale_declaration = CSSDeclaration("transform",f"scale({random.random() * 3}, {random.random() * 3})")
+            fontsize_declaration = CSSDeclaration("font-size",f"{Random.range(0, 100)}px")
+            css_rule.declaration.declarations.append(position_declaration)
+            css_rule.declaration.declarations.append(top_declaration)
+            css_rule.declaration.declarations.append(left_declaration)
+            css_rule.declaration.declarations.append(scale_declaration)
+            css_rule.declaration.declarations.append(fontsize_declaration)
             self.css_style_rules.append(css_rule)
 
         return True
